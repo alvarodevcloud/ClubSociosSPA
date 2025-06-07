@@ -6,10 +6,12 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { importProvidersFrom } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApiModule } from './app/api/api.module';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
+    importProvidersFrom(ApiModule.forRoot({ rootUrl: 'http://localhost:5125' })),
     provideHttpClient(),
     provideAnimations()
   ]
