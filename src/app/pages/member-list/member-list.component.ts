@@ -1,25 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MembersService } from '../../api/services/members.service';
+import { MemberDto } from '../../api/models/member-dto';
 
 @Component({
   standalone: true,
   selector: 'app-member-list',
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule],
   templateUrl: './member-list.component.html',
   styleUrls: ['./member-list.component.scss']
 })
 export class MemberListComponent implements OnInit {
-  members: any[] = [];
+  private memberService = inject(MembersService);
 
-  constructor(private http: HttpClient) {}
+  members: MemberDto[] = [];
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:5000/api/members').subscribe({
-      next: (data) => {
+    this.memberService.apiMembersGet$Json().subscribe({
+      next: (data: MemberDto[]) => {
         this.members = data;
+        console.log(this.members);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error fetching members', err);
       }
     });

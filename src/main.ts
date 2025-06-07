@@ -11,7 +11,7 @@ import { ApiModule } from './app/api/api.module';
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(ApiModule.forRoot({ rootUrl: 'http://localhost:5125' })),
+    importProvidersFrom(ApiModule.forRoot({ rootUrl: 'http://localhost:4200' })),
     provideHttpClient(),
     provideAnimations()
   ]
